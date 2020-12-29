@@ -10,4 +10,4 @@ gdb:
 	$(CC) -g -f elf64 -o $(DEBUG_FOLDER)hello.a $(S)
 
 clean:
-	rm -rf *.o hello hello.i64
+	rm -rf *.o *.a hello hello.i64
