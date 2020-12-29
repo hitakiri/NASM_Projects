@@ -1,9 +1,13 @@
+CC=nasm
+S=hello.asm
+DEBUG_FOLDER=debug/
+
 build:
-	nasm -f elf64 -o hello.o hello.asm
+	$(CC) -f elf64 -o hello.o $(S)
 	ld hello.o -o hello
 
 gdb:
-	nasm -g -f elf64 -o debug/hello.a hello.asm
+	$(CC) -g -f elf64 -o $(DEBUG_FOLDER)hello.a $(S)
 
 clean:
-	rm -rf *.o hello
+	rm -rf *.o hello hello.i64
