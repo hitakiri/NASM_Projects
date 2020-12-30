@@ -45,7 +45,7 @@ _start:
     mov rax, sysRead
     mov rdi, STDIN
     mov rsi, nameFromInput
-    mov rdx, 16
+    mov rdx, inputBuff
     syscall
     printStr answerText, answerLength
     printStr nameFromInput, inputBuff
