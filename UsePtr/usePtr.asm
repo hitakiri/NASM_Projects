@@ -6,7 +6,8 @@ numOfElements equ 12
 ;============================================================
 ; Data
 ;============================================================
-
+section .text
+    global _start
 ;============================================================
 ; Code
 ;============================================================
@@ -15,7 +16,7 @@ _start:
     mov rbp, rsp
     _loop:
         cmp r8, 0
-        je _putInStack_printFromStack
+        je _exit
         push sysExitCode
         push numOfElements
         call _subFromStack
@@ -25,6 +26,7 @@ _start:
     ;============================================================
     ; Exit
     ;============================================================
+    _exit:
     mov rax, sysExitCode
     xor rdi, rdi
     syscall
