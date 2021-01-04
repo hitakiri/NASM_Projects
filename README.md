@@ -3,8 +3,9 @@
 + Assembler: **NASM**
 ---
 Primitives:
-1. [HelloWorld](https://github.com/hitakiri/NASM_Projects/tree/main/HelloWorld)
-2. [TextInput](https://github.com/hitakiri/NASM_Projects/tree/main/TextInput)
-3. [TextInputMacro](https://github.com/hitakiri/NASM_Projects/tree/main/TextInputMacro)
-4. [TextLength](https://github.com/hitakiri/NASM_Projects/tree/main/TextLength)
-
+1. [HelloWorld](/HelloWorld)
+2. [TextInput](/TextInput)
+3. [TextInputMacro](/TextInputMacro)
+4. [TextLength](/TextLength)
+5. [PutDataInBuffer](/PutDataInBuffer)
+6. [UsePtr](/main/UsePtr)
