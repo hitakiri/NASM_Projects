@@ -2,7 +2,8 @@
 ; Vars
 ;============================================================
 sysExitCode equ 60
-numOfElements equ 12
+a equ 127
+b equ 9
 ;============================================================
 ; Data
 ;============================================================
@@ -12,20 +13,11 @@ section .text
 ; Code
 ;============================================================
 _start:
-    mov r8, numOfElements
-    mov rbp, rsp
-    _loop:
-        cmp r8, 0
-        je _exit
-        push sysExitCode
-        push numOfElements
-        call _addFromStack
+    xor rax, rax
+    mov al, a
+    push rax
 
-        mov rax, 256
-        mov rbx, -127
-        call _subProc
-        dec r8
-    jmp _loop
+    call _mulProc
 
     ;============================================================
     ; Exit
@@ -35,22 +27,25 @@ _start:
     xor rdi, rdi
     syscall
 
-;|input | = [rsp+16],[rsp+24] (2 params)
-;param1 + param2
+;|input | = [rsp+16] (1 param)
+;param1 * param1 * param1
 ;|output| = rax
-_addFromStack:
+_mulProc:
     push rbp
     mov rbp, rsp
-    push rdx
-    push rbx
+    ;sub rsp, 8
 
-    mov rdx, [rbp+16]
-    mov rbx, [rbp+24]
-    add  rdx, rbx
-    xchg rax, rdx
+    xor rax, rax
+    xor rdx, rdx
+    mov rax, [rbp+16]
+    mul al              ; поднимаем флаг OF
+    mov rbx, [rbp+16]
+    mul bx              ; остаток падает в rdx
 
-    pop rbx
-    pop rdx
+    mov [rbp-4], ax     ; записываем основную часть в стек
+    mov [rbp-2], dx     ; записываем остаток в стек
+    mov eax, [rbp-4]    ; записываем разультат в регистр rax
+
     mov rsp, rbp
     pop rbp
-    ret 16 ;каждый переданный параметр +8
+    ret 8     ;каждый переданный параметр +8
