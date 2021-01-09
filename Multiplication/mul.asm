@@ -2,8 +2,7 @@
 ; Vars
 ;============================================================
 sysExitCode equ 60
-a equ 127
-b equ 9
+var_A equ 127
 ;============================================================
 ; Data
 ;============================================================
@@ -14,10 +13,18 @@ section .text
 ;============================================================
 _start:
     xor rax, rax
-    mov al, a
+    mov al, var_A
     push rax
 
     call _mulProc
+    call _imul
+    mov rax, 4
+    call _sqrt
+    mov rax, 4
+    mov rbx, 3
+    mov [rsp+8], rbx
+    mov [rsp], rax
+    call _perRectProc
 
     ;============================================================
     ; Exit
@@ -49,3 +56,58 @@ _mulProc:
     mov rsp, rbp
     pop rbp
     ret 8     ;каждый переданный параметр +8
+
+_imul:
+    ; rax * operand
+    mov rax, -5
+    mov rbx, 7
+    imul rbx
+
+    ; rax = operand * num
+    mov rbx, 20
+    imul rbx, 7
+
+    ; operand1 (rcx) = operand2 (rbx) * num
+    xor rcx, rcx
+    mov rbx, 25
+    imul rcx, rbx, 5
+
+    ; porand1 = operand1 * var
+    mov rbx, 3
+    imul rbx, var_A
+
+    ret
+
+;|input | = rax
+;param1 * param1
+;|output| = rax
+_sqrt:
+    mul rax
+    ret
+
+;|input | = rax, rbx
+;per = (a + b) * 2
+;|output| = rax
+_perRect:
+    add rax, rbx
+    mov rbx, 2
+    mul rbx
+    ret
+
+;|input | = rsp, rsp+8
+;per = (a + b) * 2
+;|output| = rax
+_perRectProc:
+    push rbp
+    mov rbp, rsp
+    push rbx
+
+    mov rax, [rbp+16]
+    add rax, [rbp+24]
+    mov rbx, 2
+    mul rbx
+
+    pop rbx
+    mov rsp, rbp
+    pop rbp
+    ret 16
