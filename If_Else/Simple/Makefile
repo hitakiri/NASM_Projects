@@ -1,14 +1,13 @@
 CC=nasm
-S=input.asm
+S=simpleIfElse.asm
 DEBUG_FOLDER=debug/
-O_FILE=input.o
-OUTPUT=input
+O_FILE=simpleIfElse.o
+OUTPUT=simpleIfElse
 INCLUDE=-i ~/NASM/NASM_Projects/include/
 
 build:
 	$(CC) -f elf64 -o $(O_FILE) $(S)
-	ld -s $(O_FILE) -o $(OUTPUT)
-	#$(CC) -f bin -o $(OUTPUT) $(S)
+	ld $(O_FILE) -o $(OUTPUT)
 
 gdb:
 	$(CC) $(INCLUDE) -g -f elf64 -o $(DEBUG_FOLDER)hello.a $(S)

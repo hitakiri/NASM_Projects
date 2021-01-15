@@ -1,5 +1,5 @@
 ;%include "io64.inc"    ; for correct debugging
-
+BITS 64
 ;;-----------
 ; VARs
 STDIN   equ 0
